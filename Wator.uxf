@@ -1,0 +1,50 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>220</x><y>60</y><w>210</w><h>140</h></coordinates><panel_attributes>_worldT: Class_
+--
+CreateEntity()
+
+(points to each not null position in map)
+list&lt;EntityT&gt; existingEntities
+
+(points
+vector&lt;vector&lt;EntityT&gt;&gt; map
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>540</x><y>110</y><w>210</w><h>70</h></coordinates><panel_attributes>_EntityT: Class_
+--
+TakeTurn();</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>260</y><w>210</w><h>70</h></coordinates><panel_attributes>_InanimateT: Class_
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>590</x><y>460</y><w>240</w><h>120</h></coordinates><panel_attributes>_VolcanoT: Class_
+--
+will produce rocks around it,
+      killing anything that is already there
+will move in a cardinal direction
+      kills entities in its way
+      has a random chance to change
+                direction slightly</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>510</x><y>350</y><w>210</w><h>100</h></coordinates><panel_attributes>_RockT: Class_
+--
+
+will have a chance to erode 
+     randomly each turn
+On erode has a tiny chance to spawn
+     a bottomfeeder in its place</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>210</y><w>210</w><h>130</h></coordinates><panel_attributes>_AnimalT: Class_
+--
+Reproduce()
+Move() {there will be a default}
+
+int sightDistance {default is one}
+int breedCooldown
+bool isReadyToBreed
+int turnsSinceLastBreed</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>300</y><w>210</w><h>70</h></coordinates><panel_attributes>_FishT: Class_
+--
+literally just the base animal (boring)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>410</x><y>170</y><w>190</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;40;170;10</additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>170</y><w>40</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>20;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>320</y><w>110</w><h>50</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;30;90;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>520</y><w>230</w><h>70</h></coordinates><panel_attributes>_SharkT: Class_
+--
+Can eat any Animal that isn't itself
+     doing this resets its starve counter</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>320</y><w>80</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;140;60;100;30;10</additional_attributes></element><element><id>Relation</id><coordinates><x>340</x><y>330</y><w>100</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;90;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>110</x><y>250</y><w>200</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;50;180;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>240</x><y>420</y><w>210</w><h>70</h></coordinates><panel_attributes>_StarveT: Class_
+--
+int starveTime
+int turnsSinceLastMeal</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>280</x><y>520</y><w>210</w><h>70</h></coordinates><panel_attributes>_BottomFeederT: Class_
+--
+If there is a rock next to it, its starve 
+       counter is reset</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>120</x><y>480</y><w>190</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;40;170;10</additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>480</y><w>60</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>40;40;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>400</y><w>210</w><h>70</h></coordinates><panel_attributes>_SonarFishT: Class_
+--
+has vision of 2, moves away from
+    sharks</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>360</y><w>40</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;40;20;10</additional_attributes></element></diagram>
