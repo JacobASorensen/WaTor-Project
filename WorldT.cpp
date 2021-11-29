@@ -4,7 +4,7 @@ bool WorldT::CoordIsGood(const CoordT & coord) {
 	return (coord.x < worldWidth && coord.x >= 0) && (coord.y < worldHeight && coord.y >= 0);
 }
 
-CoordT WorldT::Up(const CoordT currentLoc) {
+CoordT WorldT::Up(const CoordT& currentLoc) {
     int newY = currentLoc.y;
     newY--;
     if(newY < 0) {
@@ -15,7 +15,7 @@ CoordT WorldT::Up(const CoordT currentLoc) {
     return newcoord;
 }
 
-CoordT WorldT::Down(const CoordT currentLoc) {
+CoordT WorldT::Down(const CoordT& currentLoc) {
     int newY = currentLoc.y;
     newY++;
     if(newY >= WorldHeight()) {
@@ -26,7 +26,7 @@ CoordT WorldT::Down(const CoordT currentLoc) {
     return newcoord;
 }
 
-CoordT WorldT::Left(const CoordT currentLoc) {
+CoordT WorldT::Left(const CoordT& currentLoc) {
     int newX = currentLoc.x;
     newX--;
     if(newX < 0) {
@@ -37,7 +37,7 @@ CoordT WorldT::Left(const CoordT currentLoc) {
     return newcoord;
 }
 
-CoordT WorldT::Right(const CoordT currentLoc) {
+CoordT WorldT::Right(const CoordT& currentLoc) {
     int newX = currentLoc.x;
     newX++;
     if(newX >= WorldWidth() ) {
@@ -58,7 +58,7 @@ int WorldT::WorldHeight() {
 }
 
 
-bool WorldT::IsEmpty(CoordT entityLoc) {
+bool WorldT::IsEmpty(const CoordT& entityLoc) {
     return Map[entityLoc.x][entityLoc.y] == nullptr;
 }
 
@@ -98,21 +98,65 @@ void WorldT::WhatIsNearby(const CoordT& entityLoc,int sight,std::vector<CoordT>&
     }
 }
 
-std::shared_ptr<EntityT*> WorldT::EntityAt(CoordT entityLoc) {
+std::shared_ptr<EntityT> WorldT::EntityAt(const CoordT& entityLoc) {
     return Map[entityLoc.x][entityLoc.y];
 }
 
 
+void WorldT::MoveEntity(const CoordT& locFrom, const CoordT& locTo) {
+    if(CoordIsGood(locFrom) && CoordIsGood(locTo)) {
+        Map[locTo.x][locTo.y] = Map[locFrom.x][locFrom.y];
+        Map[locFrom.x][locFrom.y] = nullptr;
 
-
-void WorldT::MoveEntity(CoordT locFrom, CoordT locTo) {
-    if(CoordIsGood(locFrom)) {
-
-
+        std::list<CoordT>::iterator oldPos;
+        oldPos = std::find(existingEntities.begin(),existingEntities.end(),locFrom);
+        *oldPos = locTo;
     }
+    return;
+}
+
+void WorldT::AddEntity(std::shared_ptr<EntityT> entityToAdd, const CoordT& locTo) {
+    if(CoordIsGood(locTo)) {
+        Map[locTo.x][locTo.y] = entityToAdd;
+        existingEntities.push_front(locTo);
+    }
+    return;
+}
+
+void WorldT::RemoveEntity(const CoordT& locTo) {
+    if(CoordIsGood(locTo)) {
+        Map[locTo.x][locTo.y] = nullptr;
+        
+        std::list<CoordT>::iterator oldPos;
+        oldPos = std::find(existingEntities.begin(),existingEntities.end(),locTo);
+        positionsToDelete.push_back(oldPos);
+        //we wait to delete the postions until the end of the tick
+        existingEntities.push_front(locTo);
+    }
+    return;
+}
+
+void WorldT::Tick() {
+    
+    std::list<CoordT>::iterator ptr;
+
+    for(ptr = existingEntities.begin(); ptr != existingEntities.end(); ptr++) {
+        if(Map[ptr->x][ptr->y] != nullptr) {
+            Map[ptr->x][ptr->y]->TakeTurn(*ptr);
+        }
+    }
+
+    for(size_t i = 0;i < positionsToDelete.size();i++) {
+        existingEntities.erase(positionsToDelete[i]);
+    }
+    positionsToDelete.clear();
 
 }
 
 WorldT::WorldT(int wW, int wH): worldWidth(wW), worldHeight(wH) {
-
+    Map.resize(worldWidth);
+    for(int i = 0; i < worldWidth; i++) {
+        Map[i].resize(worldHeight);
+    }
+    return;
 }
