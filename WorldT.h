@@ -4,7 +4,13 @@
 #include "Entities.h"
 
 struct CoordT {
-	CoordT(int coordx, int coordy);
+	public:
+	CoordT(int coordx, int coordy): x(coordx), y(coordy) {}
+	CoordT(const CoordT & Coord): x(Coord.x), y(Coord.y) {}
+	
+	friend class WorldT;
+
+	private:
 	int x;
 	int y;
 };
@@ -12,21 +18,26 @@ struct CoordT {
 
 class WorldT {
 	public:
+	WorldT(int wW, int wH);
 
-	CoordT Up(CoordT currentLoc);
-	CoordT Down(CoordT currentLoc);
-	CoordT Left(CoordT currentLoc);
-	CoordT Right(CoordT currentLoc);
+	bool CoordIsGood(const CoordT & coord);
+	CoordT Up(const CoordT currentLoc);
+	CoordT Down(const CoordT currentLoc);
+	CoordT Left(const CoordT currentLoc);
+	CoordT Right(const CoordT currentLoc);
 	
 	int WorldWidth();
 	int WorldHeight();
 
 	bool IsEmpty(CoordT entityLoc);
-	EntityT* EntityAt(CoordT entityLoc);
+	void WorldT::WhatIsNearby(const CoordT& entityLoc,int sight,std::vector<CoordT>& nearbyCoords);
+	std::shared_ptr<EntityT*> EntityAt(CoordT entityLoc);
 
+	void MoveEntity(CoordT locFrom, CoordT locTo);
+	void AddEntity(std::shared_ptr<EntityT*> entityToAdd, CoordT locTo);
+	void RemoveEntity(CoordT locTo);
 
-	std::vector<CoordT> WhatIsNearby(int sight,const CoordT entityLoc);
-
+	
 
 	private:
 

@@ -3,14 +3,14 @@
 
 class EntityT {
 	public:
-	virtual void TakeTurn()const = 0;
+	virtual void TakeTurn(CoordT myLoc)const = 0;
 };
 
 class AnimalT: public EntityT {
 	public:
 
 	private:
-	void Reproduce();
+	virtual void Reproduce()const = 0;
 	void Move();
 
 
@@ -24,9 +24,17 @@ class AnimalT: public EntityT {
 class FishT: public AnimalT {
 	public:
 
-	void TakeTurn() const override;
+	void TakeTurn(CoordT myLoc) const override;
 
 };
+
+/*
+maybe add a whale that will hold fish/sharks in its mouth until it
+moves onto a rock and becomes beached and dies, and then it releases
+all of its held animals
+
+*/
+
 
 //focus on getting the fish to work
 /*
@@ -44,7 +52,7 @@ class StarveT: public AnimalT {
 
 class SharkT: public StarveT {
 	public:
-	void TakeTurn() const override;
+	void TakeTurn(CoordT myLoc) const override;
 
 	private:
 	void Move(); //prioritizes fish, so it won't starve
@@ -52,7 +60,7 @@ class SharkT: public StarveT {
 
 class BottomFeederT: public StarveT {
 	public:
-	void TakeTurn() const override;
+	void TakeTurn(CoordT myLoc) const override;
 
 	private:
 	void Move(); //likes to stay put near rocks
@@ -66,7 +74,7 @@ class InanimateT: public EntityT {
 
 class RockT: public InanimateT {
 	public:
-	void TakeTurn() const override;
+	void TakeTurn(CoordT myLoc) const override;
 
 	private:
 	void Erode();
@@ -75,7 +83,7 @@ class RockT: public InanimateT {
 
 class VolcanoT: public InanimateT {
 	public:
-	void TakeTurn() const override;
+	void TakeTurn(CoordT myLoc) const override;
 
 	private:
 	//moves in a cardinal direction, maybe can change direction?
