@@ -4,6 +4,8 @@ bool WorldT::CoordIsGood(const CoordT & coord) {
 	return (coord.x < worldWidth && coord.x >= 0) && (coord.y < worldHeight && coord.y >= 0);
 }
 
+
+
 CoordT WorldT::Up(const CoordT& currentLoc) {
     int newY = currentLoc.y;
     newY--;
@@ -48,12 +50,39 @@ CoordT WorldT::Right(const CoordT& currentLoc) {
     return newcoord;
 }
 
+CoordT WorldT::ZeroCoord() {
+    if(worldWidth > 0 && worldHeight > 0) {
+        return CoordT(0,0);
+    }
 
-int WorldT::WorldWidth() {
+}
+
+
+CoordT WorldT::RandomCoord(bool unoccupied) {
+    CoordT newCoord(0,0);
+    
+    std::default_random_engine generator;
+    std::uniform_int_distribution<int> xRand(0,worldWidth - 1);
+    std::uniform_int_distribution<int> yRand(0,worldHeight - 1);
+
+    newCoord.x = xRand(generator);
+    newCoord.y = yRand(generator);
+
+    int totalCoords = worldHeight*worldWidth;
+    if(unoccupied && (totalCoords > existingEntities.size() - positionsToDelete.size())) {
+        while(not IsEmpty(newCoord)) {
+            newCoord.x = xRand(generator);
+            newCoord.y = yRand(generator);
+        }
+    }
+    return newCoord;
+}
+
+int WorldT::WorldWidth() const {
     return worldWidth;
 }
 
-int WorldT::WorldHeight() {
+int WorldT::WorldHeight() const {
     return worldHeight;
 }
 
@@ -89,6 +118,42 @@ void WorldT::WhatIsNearby(const CoordT& entityLoc,int sight,std::vector<CoordT>&
             for(int x = 0; x < i + 1; x++) {
                 currentCoord = Right(currentCoord);
                 currentCoord = Up(currentCoord);
+                nearbyCoords.emplace_back(currentCoord);
+            }
+            //this was done to prevent the repeated up
+            //and so "up" will always be first
+            nearbyCoords.pop_back();
+        }
+    }
+}
+
+void WorldT::WhatIsNearbyOcto(const CoordT& entityLoc,int sight,std::vector<CoordT>& nearbyCoords) {
+    CoordT currentCoord(entityLoc);
+    if(sight >= 1) {
+        
+        for(int i = 0; i < sight; i++) {
+            currentCoord = Up(currentCoord);
+            nearbyCoords.emplace_back(currentCoord);
+
+            for(int x = 0; x < i + 1; x++) {
+                currentCoord = Right(currentCoord);
+                nearbyCoords.emplace_back(currentCoord);
+            }
+            for(int x = 0; x < 2*(i + 1); x++) {
+                currentCoord = Down(currentCoord);
+                nearbyCoords.emplace_back(currentCoord);
+            }
+
+            for(int x = 0; x < 2*(i + 1); x++) {
+                currentCoord = Left(currentCoord);
+                nearbyCoords.emplace_back(currentCoord);
+            }
+            for(int x = 0; x < 2*(i + 1); x++) {
+                currentCoord = Up(currentCoord);
+                nearbyCoords.emplace_back(currentCoord);
+            }
+            for(int x = 0; x < i + 1; x++) {
+                currentCoord = Right(currentCoord);
                 nearbyCoords.emplace_back(currentCoord);
             }
             //this was done to prevent the repeated up
@@ -142,7 +207,7 @@ void WorldT::Tick() {
 
     for(ptr = existingEntities.begin(); ptr != existingEntities.end(); ptr++) {
         if(Map[ptr->x][ptr->y] != nullptr) {
-            Map[ptr->x][ptr->y]->TakeTurn(*ptr);
+            Map[ptr->x][ptr->y]->TakeTurn(*ptr,*this);
         }
     }
 

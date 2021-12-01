@@ -1,30 +1,42 @@
 
 
+#pragma once
+//bool EntitiesAreSameClass(EntityT* ent1, EntityT* ent2);
+int RandBetween(int low, int high);
+
 
 class EntityT {
 	public:
-	virtual void TakeTurn(CoordT myLoc)const = 0;
+	virtual void TakeTurn(const CoordT& myLoc,WorldT& World) = 0;
 };
+
+template <typename T> 
+bool IsEntityType(const std::shared_ptr<EntityT> check);
 
 class AnimalT: public EntityT {
 	public:
+	
+	protected:
+	virtual void Reproduce(const CoordT& newLoc,WorldT& World) = 0;
+	virtual bool Move(const CoordT& myLoc,WorldT& World);
 
-	private:
-	virtual void Reproduce()const = 0;
-	void Move();
-
-
-	int sightDistance = 1;
-	int breedCooldown = 1;
-	bool isReadyToBreed = false;
-	int turnsSinceLastBreed = 0;
+	std::vector<CoordT> nearbyCoords;
+	int sightDistance{0};
+	int breedCooldown{0};
+	bool isReadyToBreed{false};
+	int turnsSinceLastBreed{0};
 
 };
 
 class FishT: public AnimalT {
 	public:
+	FishT(int& breedCool);
 
-	void TakeTurn(CoordT myLoc) const override;
+	void TakeTurn(const CoordT& myLoc,WorldT& World) override;
+
+	protected:
+	
+	void Reproduce(const CoordT& newLoc,WorldT& World) override;
 
 };
 
