@@ -1,5 +1,11 @@
 #include "GodT.h"
-#include <exception>
+#include "WorldT.h"
+#include "Entities.h"
+#include <fstream>
+#include <string>
+
+GodT::GodT() {
+}
 
 void GodT::ObtainData(int& num, std::ifstream& gameData) {
 	if(gameData) {
@@ -30,7 +36,7 @@ void GodT::GetInfo(std::string fileName) {
 	gameData.close();
 
 	return;
-};
+}
 
 InfoT& GodT::InitialConditions() {
 	return worldInfo;
@@ -46,7 +52,7 @@ int GodT::OrdainedHeight() {
 
 void GodT::Populate(WorldT& theEarthIsATorus) {
 
-	for(size_t i = 0; i < worldInfo.fishNum; i++) {
+	for(int i = 0; i < worldInfo.fishNum; i++) {
 		CoordT newCoord(theEarthIsATorus.RandomCoord());
 		auto newFishy = std::make_shared<FishT>(worldInfo.fishBreed);
 		theEarthIsATorus.AddEntity(newFishy,newCoord);

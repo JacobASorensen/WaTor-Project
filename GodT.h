@@ -1,9 +1,10 @@
-#include "WorldT.h"
-#include "Entities.h"
+#pragma once
 #include <fstream>
 #include <string>
+#include "WorldT.h"
+#include "Entities.h"
 
-#pragma once
+
 
 struct InfoT {
 int worldWidth = 0;

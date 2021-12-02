@@ -1,23 +1,21 @@
+#pragma once
 #include <list>
 #include <vector>
 #include <memory>
 #include <algorithm>
 #include <random>
-//#include <ctime>
-#include "Entities.h"
 
-#pragma once
+class EntityT;
 
 struct CoordT {
 	public:
-	bool operator==(const CoordT& E) {
-		return (x == E.x && y == E.y);
-	}
+	bool operator==(const CoordT& E) {return (x == E.x && y == E.y);}
 	CoordT(const CoordT & Coord): x(Coord.x), y(Coord.y) {}
 	
 	friend class WorldT;
 
 	private:
+	CoordT(): x(0), y(0) {}
 	CoordT(int coordx, int coordy): x(coordx), y(coordy) {}
 	int x;
 	int y;
@@ -41,8 +39,8 @@ class WorldT {
 	int WorldHeight() const;
 
 	bool IsEmpty(const CoordT& entityLoc);
-	void WorldT::WhatIsNearby(const CoordT& entityLoc,int sight,std::vector<CoordT>& nearbyCoords);
-	void WorldT::WhatIsNearbyOcto(const CoordT& entityLoc,int sight,std::vector<CoordT>& nearbyCoords);
+	void WhatIsNearby(const CoordT& entityLoc,int sight,std::vector<CoordT>& nearbyCoords);
+	void WhatIsNearbyOcto(const CoordT& entityLoc,int sight,std::vector<CoordT>& nearbyCoords);
 	std::shared_ptr<EntityT> EntityAt(const CoordT& entityLoc);
 
 	void MoveEntity(const CoordT& locFrom, const CoordT& locTo);

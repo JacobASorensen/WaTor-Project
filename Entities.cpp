@@ -1,5 +1,5 @@
-#include "WorldT.h"
 #include "Entities.h"
+#include "WorldT.h"
 #include <random>
 
 int RandBetween(int low, int high) {
@@ -7,7 +7,7 @@ int RandBetween(int low, int high) {
     std::uniform_int_distribution<int> randNum(low,high);
     return randNum(generator);
 }
-
+/*
 template <typename T> 
 bool IsEntityType(const std::shared_ptr<EntityT> check) {
     bool isType = false;
@@ -15,7 +15,7 @@ bool IsEntityType(const std::shared_ptr<EntityT> check) {
         isType = true;
     }
     return isType;
-}
+} */
 
 //Its very basic, and only looks at the 4 locations around itself
 //The base animal Move function just prevents the animal
@@ -32,7 +32,7 @@ bool AnimalT::Move(const CoordT& myLoc,WorldT& World) {
         }
     }
     if(emptyLocs.size() > 0) {
-        World.MoveEntity(myLoc,nearbyCoords[emptyLocs[RandBetween(0, emptyLocs.size() - 1)]]);
+        World.MoveEntity(myLoc,nearbyCoords[emptyLocs[RandBetween(0, static_cast<int>(emptyLocs.size() - 1))]]);
         haveMoved = true;
     }
     return haveMoved;

@@ -1,9 +1,10 @@
-
-
 #pragma once
-//bool EntitiesAreSameClass(EntityT* ent1, EntityT* ent2);
-int RandBetween(int low, int high);
+#include <random>
+#include <memory>
+#include "WorldT.h"
 
+
+int RandBetween(int low, int high);
 
 class EntityT {
 	public:
@@ -11,8 +12,18 @@ class EntityT {
 };
 
 template <typename T> 
-bool IsEntityType(const std::shared_ptr<EntityT> check);
+bool IsEntityType(const std::shared_ptr<EntityT> check) {
+    bool isType = false;
+    if(T* testVar = dynamic_cast<T*>(check.get()) ) {
+        isType = true;
+    }
+    return isType;
+} 
 
+/*
+template <typename T> 
+bool IsEntityType(const std::shared_ptr<EntityT> check);
+*/
 class AnimalT: public EntityT {
 	public:
 	

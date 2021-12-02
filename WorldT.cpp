@@ -1,4 +1,11 @@
+//#pragma once
 #include "WorldT.h"
+#include <list>
+#include <vector>
+#include <memory>
+#include <algorithm>
+#include <random>
+#include "Entities.h"
 
 bool WorldT::CoordIsGood(const CoordT & coord) {
 	return (coord.x < worldWidth && coord.x >= 0) && (coord.y < worldHeight && coord.y >= 0);
@@ -51,10 +58,11 @@ CoordT WorldT::Right(const CoordT& currentLoc) {
 }
 
 CoordT WorldT::ZeroCoord() {
-    if(worldWidth > 0 && worldHeight > 0) {
+    //if(worldWidth > 0 && worldHeight > 0) {
         return CoordT(0,0);
-    }
-
+   /* } else {
+        throw 
+    } */
 }
 
 
@@ -68,7 +76,7 @@ CoordT WorldT::RandomCoord(bool unoccupied) {
     newCoord.x = xRand(generator);
     newCoord.y = yRand(generator);
 
-    int totalCoords = worldHeight*worldWidth;
+    size_t totalCoords = worldHeight*worldWidth;
     if(unoccupied && (totalCoords > existingEntities.size() - positionsToDelete.size())) {
         while(not IsEmpty(newCoord)) {
             newCoord.x = xRand(generator);
@@ -219,6 +227,13 @@ void WorldT::Tick() {
 }
 
 WorldT::WorldT(int wW, int wH): worldWidth(wW), worldHeight(wH) {
+    if(worldWidth <= 0) {
+        worldWidth = 1;
+    }
+    if(worldHeight <= 0) {
+        worldHeight = 1;
+    }
+    
     Map.resize(worldWidth);
     for(int i = 0; i < worldWidth; i++) {
         Map[i].resize(worldHeight);
