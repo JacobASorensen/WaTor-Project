@@ -9,7 +9,9 @@
 #include "GodT.h"
 
 
-const char FISH_CHAR = 'F';
+const char FISH_CHAR = 'f';
+const char SHARK_CHAR = 'S';
+
 
 class Display {
 	public:

@@ -18,12 +18,10 @@ bool IsEntityType(const std::shared_ptr<EntityT> check) {
         isType = true;
     }
     return isType;
-} 
+}
 
-/*
-template <typename T> 
-bool IsEntityType(const std::shared_ptr<EntityT> check);
-*/
+
+
 class AnimalT: public EntityT {
 	public:
 	
@@ -32,16 +30,17 @@ class AnimalT: public EntityT {
 	virtual bool Move(const CoordT& myLoc,WorldT& World);
 
 	std::vector<CoordT> nearbyCoords;
-	int sightDistance{0};
-	int breedCooldown{0};
-	bool isReadyToBreed{false};
-	int turnsSinceLastBreed{0};
+	int sightDistance;
+	int breedCooldown;
+	bool isReadyToBreed;
+	int turnsSinceLastBreed;
 
 };
 
 class FishT: public AnimalT {
 	public:
-	FishT(int& breedCool);
+	//FishT();
+	FishT(const int& breedCool);
 
 	void TakeTurn(const CoordT& myLoc,WorldT& World) override;
 
@@ -58,29 +57,26 @@ all of its held animals
 
 */
 
-
-//focus on getting the fish to work
-/*
-class SonarFishT: public FishT {
-
-
-};
-
 class StarveT: public AnimalT {
-	private:
-	int starveTime = 2;
-	int turnsSinceLastMeal = 0;
-	virtual void Starve();
+	protected:
+	int starveTime;
+	int turnsSinceLastMeal;
 };
 
 class SharkT: public StarveT {
 	public:
-	void TakeTurn(CoordT myLoc) const override;
+	SharkT();
+	SharkT(int& sharkBreed,int& sharkStarve);
+	void TakeTurn(const CoordT& myLoc,WorldT& World) override;
 
-	private:
-	void Move(); //prioritizes fish, so it won't starve
+	protected:
+	void Reproduce(const CoordT& newLoc,WorldT& World) override;
+	//prioritizes fish, so it won't starve
+	bool Move(const CoordT& myLoc,WorldT& World) override;
+	
 };
 
+/*
 class BottomFeederT: public StarveT {
 	public:
 	void TakeTurn(CoordT myLoc) const override;
@@ -91,9 +87,10 @@ class BottomFeederT: public StarveT {
 };
 
 
-
+*/
 class InanimateT: public EntityT {
 };
+/*
 
 class RockT: public InanimateT {
 	public:
@@ -109,6 +106,7 @@ class VolcanoT: public InanimateT {
 	void TakeTurn(CoordT myLoc) const override;
 
 	private:
+	//random chance to extinction event event
 	//moves in a cardinal direction, maybe can change direction?
 	//kills entities in its way
 	void Move();
