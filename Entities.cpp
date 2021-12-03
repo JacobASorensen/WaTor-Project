@@ -29,6 +29,7 @@ bool AnimalT::Move(const CoordT& myLoc,WorldT& World) {
         World.MoveEntity(myLoc,nearbyCoords[emptyLocs[randIndex]]);
         haveMoved = true;
     }
+    
     return haveMoved;
 }
 

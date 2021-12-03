@@ -13,8 +13,8 @@ bool WorldT::CoordIsGood(const CoordT & coord) {
 }
 
 CoordT WorldT::Up(const CoordT& currentLoc) {
-    int newY = currentLoc.y;
-    newY--;
+    
+    int newY = currentLoc.y - 1;
     if(newY < 0) {
         newY = WorldHeight() - 1;
     }
@@ -24,8 +24,7 @@ CoordT WorldT::Up(const CoordT& currentLoc) {
 }
 
 CoordT WorldT::Down(const CoordT& currentLoc) {
-    int newY = currentLoc.y;
-    newY++;
+    int newY = currentLoc.y + 1;
     if(newY >= WorldHeight()) {
         newY = 0;
     }
@@ -143,7 +142,7 @@ void WorldT::WhatIsNearby(const CoordT& entityLoc,int sight,std::vector<CoordT>&
                 nearbyCoords.emplace_back(currentCoord);
             }
             //this was done to prevent the repeated up
-            //and so "up" will always be first
+            //so that "up" will always be first
             nearbyCoords.pop_back();
         }
     }
@@ -190,7 +189,7 @@ std::shared_ptr<EntityT> WorldT::EntityAt(const CoordT& entityLoc) {
 }
 
 
-void WorldT::MoveEntity(const CoordT& locFrom, const CoordT& locTo) {
+void WorldT::MoveEntity(const CoordT locFrom, const CoordT locTo) {
     if(CoordIsGood(locFrom) && CoordIsGood(locTo)) {
         if(locTo == locFrom) {
         } else {

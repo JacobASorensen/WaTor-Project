@@ -37,7 +37,7 @@ std::string Display::CreateFirstLine( WorldT& world) {
     return returnString;
 }
 
-std::string Display::CreateLine( WorldT& world, CoordT& current) {
+std::string Display::CreateLine( WorldT& world, CoordT current) {
     std::string returnString;
     returnString = " ";
     for(int i = 0; i < world.WorldWidth(); i++) {
@@ -57,8 +57,7 @@ void Display::PrintWorld(WorldT& world, InfoT& initialConditions) {
 
     for(int i = 0; i < world.WorldHeight();i++ ) {
         worldAsString.push_back(CreateLine(world,current));
-        current = world.Right(current);
-        current = world.Up(current);
+        current = world.Down(current);
     }
     
     std::cout << "Turn: " << world.WorldAge() << std::endl;
