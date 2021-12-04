@@ -11,6 +11,14 @@
 
 const char FISH_CHAR = 'f';
 const char SHARK_CHAR = 'S';
+const char BOTTOM_FEEDER_CHAR = 'B';
+const char WHALE_CHAR = 'W';
+const char ROCK_CHAR = 'R';
+const char VOLCANO_CHAR = 'V';
+
+//const char WHALE_CHAR = 'W';
+//const char WHALE_CHAR = 'W';
+//const char WHALE_CHAR = 'W';
 
 
 class Display {
@@ -24,5 +32,7 @@ class Display {
 	void PressEnter();
 	private:
 
+	//counts each type of entity for
+	//PrintFishInfo output
 	std::vector<int> aquaticCounts;
 };

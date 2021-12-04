@@ -8,7 +8,7 @@ int RandBetween(int low, int high);
 
 class EntityT {
 	public:
-	virtual void TakeTurn(const CoordT& myLoc,WorldT& World) = 0;
+	virtual void TakeTurn(CoordT& myLoc,WorldT& World) = 0;
 };
 
 template <typename T> 
@@ -21,13 +21,12 @@ bool IsEntityType(const std::shared_ptr<EntityT> check) {
 }
 
 
-
 class AnimalT: public EntityT {
 	public:
 	
 	protected:
 	virtual void Reproduce(const CoordT& newLoc,WorldT& World) = 0;
-	virtual bool Move(const CoordT& myLoc,WorldT& World);
+	virtual bool Move(CoordT& myLoc,WorldT& World);
 
 	std::vector<CoordT> nearbyCoords;
 	int sightDistance;
@@ -37,25 +36,37 @@ class AnimalT: public EntityT {
 
 };
 
+//moves around randomly
+//reproduces every fishBreed turns
 class FishT: public AnimalT {
 	public:
 	//FishT();
 	FishT(const int& breedCool);
 
-	void TakeTurn(const CoordT& myLoc,WorldT& World) override;
+	void TakeTurn(CoordT& myLoc,WorldT& World) override;
 
 	protected:
+	int breedCooldown;
 	
 	void Reproduce(const CoordT& newLoc,WorldT& World) override;
 
 };
 
-/*
-maybe add a whale that will hold fish/sharks in its mouth until it
-moves onto a rock and becomes beached and dies, and then it releases
-all of its held animals
-
-*/
+//swallows animals whole. 
+//moves randomly; gets beached and dies on rocks
+//releases all swallowed animals on death 
+class WhaleT : public FishT {
+	public:
+	WhaleT(const int& breed,const bool& isCanB,const CoordT& newLoc, WorldT& world);
+	~WhaleT();
+	private:
+	std::list<std::shared_ptr<EntityT>> swallowedAnimals;
+	bool isCannibal;
+	CoordT lastKnownCoord;
+	WorldT& lastKnownWorld;
+	void Reproduce(const CoordT& newLoc,WorldT& World) override;
+	bool Move(CoordT& myLoc,WorldT& World) override;
+};
 
 class StarveT: public AnimalT {
 	protected:
@@ -63,55 +74,88 @@ class StarveT: public AnimalT {
 	int turnsSinceLastMeal;
 };
 
+//eats fishies. can't eat inanimates (rocks and volcanoes) and whales
+//starves if runs out of nutrients.
 class SharkT: public StarveT {
 	public:
 	SharkT();
 	SharkT(int& sharkBreed,int& sharkStarve);
-	void TakeTurn(const CoordT& myLoc,WorldT& World) override;
+	void TakeTurn(CoordT& myLoc,WorldT& World) override;
 
 	protected:
 	void Reproduce(const CoordT& newLoc,WorldT& World) override;
 	//prioritizes fish, so it won't starve
-	bool Move(const CoordT& myLoc,WorldT& World) override;
+	bool Move(CoordT& myLoc,WorldT& World) override;
 	
 };
 
-/*
-class BottomFeederT: public StarveT {
-	public:
-	void TakeTurn(CoordT myLoc) const override;
 
-	private:
-	void Move(); //likes to stay put near rocks
-	void Reproduce(); //when at a rock, sends out babies from its stagnant location
+//likes to stay put near rocks, and feed on the nutrients there
+//sends out babies from its location
+class BottomFeederT: public StarveT {
+	
+	public:
+	BottomFeederT(int bFB,int bFS);
+	void TakeTurn(CoordT& myLoc,WorldT& World) override;
+	
+	protected:
+	void Reproduce(const CoordT& newLoc,WorldT& World) override;
+	bool IsNearRock(WorldT& World);
+	void Reproduce(WorldT& World);
 };
 
-
-*/
+//inanimate entity: mainly for blocking movement for animals
 class InanimateT: public EntityT {
 };
-/*
 
+//has a random chance to erode based off of 2 input values
 class RockT: public InanimateT {
+	
 	public:
-	void TakeTurn(CoordT myLoc) const override;
+	RockT(int& erMin,int& erMax);
+	void TakeTurn(CoordT& myLoc,WorldT& World) override;
 
 	private:
-	void Erode();
-	void SpawnBottomFeeder();
+	int age;
+	int erodeMin;
+	int erodeMax;
+	bool Erode();
+	//
 };
 
+//moves like a rook in chess. has an increasing chance to move each turn until it moves
+//has an increasing chance to spawn rocks each turn until it does.
+//can spawn rocks in different amounts, ranges, and frequencies around it
+//approaches doomsday, which fills most of the map with rocks
 class VolcanoT: public InanimateT {
+	
 	public:
-	void TakeTurn(CoordT myLoc) const override;
+	VolcanoT(int& rMin,int& rMax,int& mF,int& sF,int& sM,int& sR,int& ddT);
+	void TakeTurn(CoordT& myLoc,WorldT& World) override;
 
 	private:
-	//random chance to extinction event event
-	//moves in a cardinal direction, maybe can change direction?
-	//kills entities in its way
-	void Move();
-	//spawns between 0 and 4 rocks around it, killing entities present there
-	void SpawnRocks();
-};
+	int age;
+	int rockErodeMin;
+	int rockErodeMax;
+	int moveFreq;
+	int timeSinceLastMove;
+	int spewFreq;
+	int timeSinceLastSpew;
+	int spewMag;
+	int spewRange;
+	int doomsdayTimer;
 
-*/
+	int xMove;
+	bool eastMoving;
+	int yMove;
+	bool northMoving;
+	std::vector<CoordT> nearbyCoords;
+
+	void Doomsday(const CoordT& myLoc,WorldT& World);
+	void Move(CoordT& myLoc,WorldT& World);
+	void XMove(CoordT& myLoc,WorldT& World);
+	void YMove(CoordT& myLoc,WorldT& World);
+
+	void SpawnRocks(const CoordT& myLoc,WorldT& World);
+	
+};

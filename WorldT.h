@@ -55,7 +55,7 @@ class WorldT {
 	CoordT FindEntity(std::shared_ptr<EntityT> entity);
 	int NumOccupiedLocs() const;
 
-	void MoveEntity(const CoordT locFrom, const CoordT locTo);
+	void MoveEntity(CoordT& locFrom, const CoordT& locTo);
 	void AddEntity(std::shared_ptr<EntityT> entityToAdd, const CoordT& locTo);
 	void RemoveEntity(const CoordT& locTo);
 	int WorldAge() const;

@@ -14,3 +14,9 @@ Display.o: Display.h WorldT.h Entities.h GodT.h
 
 clean:
 	rm -f ${OBJS} *.o 
+
+clear:
+	make clean
+	clear
+	clear
+	make

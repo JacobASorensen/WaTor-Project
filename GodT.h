@@ -18,14 +18,24 @@ int sharkStarve = 0;
 int sharkBreed = 0;
 
 int bottomFeederNum = 0;
-int bottomFeederBreed = 0;
 int bottomFeederStarve = 0;
+int bottomFeederBreed = 0;
 
 int whaleNum = 0;
 int whaleBreed = 0;
+int whaleCannibal = 0;
 
 int rockNum = 0;
+int rockErodeMin = 0;
+int rockErodeMax = 0;
+
 int volcanoNum = 0;
+int volcanoMoveFreq = 0;
+
+int volcanoSpewFreq = 0;
+int volcanoSpewMag = 0;
+int volcanoSpewRange = 0;
+
 int volcanoDoomsday = 0;
 };
 

@@ -189,12 +189,13 @@ std::shared_ptr<EntityT> WorldT::EntityAt(const CoordT& entityLoc) {
 }
 
 
-void WorldT::MoveEntity(const CoordT locFrom, const CoordT locTo) {
+void WorldT::MoveEntity(CoordT& locFrom, const CoordT& locTo) {
     if(CoordIsGood(locFrom) && CoordIsGood(locTo)) {
         if(locTo == locFrom) {
         } else {
             Map[locTo.x][locTo.y] = Map[locFrom.x][locFrom.y];
             Map[locFrom.x][locFrom.y] = nullptr;
+            locFrom = locTo;
         }
     }
     return;
@@ -323,3 +324,4 @@ WorldT::WorldT(int wW, int wH): worldWidth(wW), worldHeight(wH) {
     }
     return;
 }
+
