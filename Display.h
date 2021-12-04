@@ -30,6 +30,7 @@ class Display {
 	void PrintWorld(WorldT& world, InfoT& initialConditions);
 	void PrintFishInfo(InfoT& initialConditions);
 	void PressEnter();
+	void PrintInitialSettings(InfoT& initConds);
 	private:
 
 	//counts each type of entity for

@@ -71,7 +71,7 @@ whaleNum: sets the number of whales to spawn at the beginning
 whaleBreed: sets the whale breed cooldown
 whaleCannibal: if is 1 lets whales swallow each other 
 				(if you set this to 1 I can't guarantee this won't eventually run your program out of memory)
-				if is anything else but 1 disables whales from swallowing each other
+				if it is anything else but 1,whales are disabled from swallowing each other
 
 rockNum: sets the number of rocks to spawn at the beginning
 rockErodeMin: sets the minimum required age to erode

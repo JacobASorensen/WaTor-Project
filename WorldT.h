@@ -41,13 +41,15 @@ class WorldT {
 	CoordT Left(const CoordT& currentLoc);
 	CoordT Right(const CoordT& currentLoc);
 	CoordT ZeroCoord();
-
+	
+	//by far by favorite function here
 	CoordT RandomCoord(bool careAboutOccupancy = true,bool unoccupied = true);
 
 	int WorldWidth() const;
 	int WorldHeight() const;
 
 	bool IsEmpty(const CoordT& entityLoc);
+	//It gets all the locations within sight taxicab distance
 	void WhatIsNearby(const CoordT& entityLoc,int sight,std::vector<CoordT>& nearbyCoords);
 	void WhatIsNearbyOcto(const CoordT& entityLoc,int sight,std::vector<CoordT>& nearbyCoords);
 	std::shared_ptr<EntityT> EntityAt(const CoordT& entityLoc);

@@ -131,3 +131,46 @@ void Display::PressEnter() {
     getline(std::cin,literalGarbage);
     return;
 }
+
+void PrintInitialSettings(InfoT& initConds) {
+    using namespace std;
+	cout << endl;
+	cout << "Initial Settings: " << endl;
+
+	cout << "World Width: " << initConds.worldWidth << endl;
+	cout << "World Height: " << initConds.worldHeight << endl << endl;
+
+	cout << "Fish Num: " << initConds.fishNum << endl;
+	cout << "Fish Breed: " << initConds.fishBreed << endl << endl;
+
+	cout << "Shark Num: " << initConds.sharkNum << endl;
+	cout << "Shark Starve: " << initConds.sharkStarve << endl;
+	cout << "Shark Breed: " << initConds.sharkBreed << endl << endl;
+
+	cout << "Bottom Feeder Num: " << initConds.bottomFeederNum << endl;
+	cout << "Bottom Feeder Starve: " << initConds.bottomFeederStarve << endl;
+	cout << "Bottom Feeder Breed: " << initConds.bottomFeederBreed << endl << endl;
+
+	cout << "Whale Num: " << initConds.whaleNum << endl;
+	cout << "Whale Breed: " << initConds.whaleBreed << endl;
+	cout << "Whale Cannibal: ";
+	if (initConds.whaleCannibal == 1) {
+		cout << "TRUE";
+	} else {
+		cout << "FALSE";
+	}
+	cout << endl << endl;
+
+	cout << "Rock Num: " << initConds.rockNum << endl;
+	cout << "Rock Erode Min: " << initConds.rockErodeMin << endl;
+	cout << "Rock Erode Max: " << initConds.rockErodeMax << endl << endl;
+
+	cout << "Volcano Num: " << initConds.volcanoNum << endl;
+	cout << "Volcano Move Freq: " << initConds.volcanoMoveFreq << endl;
+	cout << "Volcano Spew Freq: " << initConds.volcanoSpewFreq << endl << endl;
+	cout << "Volcano Spew Magnitude: " << initConds.volcanoSpewMag << endl;
+	cout << "Volcano Spew Range: " << initConds.volcanoSpewRange << endl;
+	cout << "Volcano Doomsday Delay: " << initConds.volcanoDoomsday << endl << endl;
+	cout << endl << endl;
+	return;
+}
