@@ -44,11 +44,11 @@ volcanoDoomsdayDelay
 heres what it looks like with actual numbers (also my recommendation):
 *******
 20 20
-4 10
+3 10
 20 5 6
-10 12 3
-2 40 1
-10 10 20
+20 12 3
+2 40 0
+10 20 40
 1  4 1  8 2  150
 *********
 now for an explanation of each variable:

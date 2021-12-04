@@ -151,7 +151,7 @@ RockT::RockT(int& erMin,int& erMax): erodeMin(erMin), erodeMax(erMax) {
 
 bool RockT::Erode() {
     if(age > erodeMin) {
-        int diff = erodeMax - (erodeMin + age);
+        int diff = erodeMax - (age - erodeMin);
         if(diff <= 0) {
             return true;
         } else if(RandBetween(0,diff) == 0) {
