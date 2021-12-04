@@ -76,7 +76,7 @@ whaleCannibal: if is 1 lets whales swallow each other
 rockNum: sets the number of rocks to spawn at the beginning
 rockErodeMin: sets the minimum required age to erode
 rockErodeMax: sets the maximum age to erode (the chance increases as it ages)
-				i.e: % chance of erode = 1/(erodeMax - (erodeMin + age))
+				i.e: % chance of erode = 1/(erodeMax - (age - erodeMin))
 				
 volcanoNum: sets the number of volcanos to spawn at the beginning
 			(if doomsday is less than a very large number, multiple volcanos won't be too exciting)
