@@ -83,10 +83,10 @@ void Display::PrintWorld(WorldT& world, InfoT& initialConditions) {
     int i = 0;
     for(ptr = worldAsString.begin(); ptr != worldAsString.end(); ptr++) {
         if(i > 0) {
-            if(i < 10) {
+            if(i <= 10) {
                 std::cout << i - 1 << " ";
             } else {
-                std:: cout << std::to_string(i);
+                std:: cout << std::to_string(i-1);
             }
         }
        

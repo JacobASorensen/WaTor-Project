@@ -14,7 +14,7 @@ int main() {
 	Poseidon.GetInfo("wator.init");
 	
 	//cout << "Creating World..." << endl;
-	WorldT theEarthIsATorus(Poseidon.OrdainedWidth(),Poseidon.OrdainedWidth());
+	WorldT theEarthIsATorus(Poseidon.OrdainedWidth(),Poseidon.OrdainedHeight());
 	
 	//cout << "Populating World..." << endl;
 	if( (theEarthIsATorus.WorldWidth() > 0) 
