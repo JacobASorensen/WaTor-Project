@@ -1,4 +1,6 @@
 Hi! and welcome to my WaTor world;
+For those not familiar with WaTor, here is my professors website, with the description of this HW assignment.
+http://mirkwood.cs.edinboro.edu/~bennett/class/csci330/fall2021/hw/five/index.html
 
 I suppose you would like to get right into it.
 My program includes:
