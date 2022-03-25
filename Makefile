@@ -1,7 +1,7 @@
 .PHONY: all clean
 
-CXXFLAGS =  -g -O3 -Wpedantic -Wall -Wextra -Wmisleading-indentation -Wunused -Wuninitialized -Wshadow -Wconversion -Werror -std=c++17
-
+CXXFLAGS =  -g -O3 -Wpedantic -Wall -Wextra -Wmisleading-indentation -Wunused -Wuninitialized -Wshadow -Wconversion -std=c++17
+# -Werror
 OBJS = JS_WaTor
 
 all: ${OBJS}

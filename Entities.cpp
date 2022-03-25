@@ -163,6 +163,18 @@ bool RockT::Erode() {
 
 void RockT::TakeTurn(CoordT& myLoc,WorldT& World) {
     age++;
+    //add pack erosion
+    //if there are 4 rocks around the rock, have a 0% chance of calling erode
+    //if there are 3 have a 25%, 2 a 50%, and 1 a 75%, and 0 a 100%
+    /*
+    if(islandEnabled) {
+        check what is nearby
+        if(numNearbyRocks >= RandBetween(0,3)) {
+            call erode, and remove entity
+        }
+    }
+
+    */
     if(Erode()) {
         World.RemoveEntity(myLoc);
     }
