@@ -1,11 +1,8 @@
-
+*.code-workspace
 .vscode/configurationCache.log
 .vscode/dryrun.log
 .vscode/launch.json
 .vscode/targets.log
 .vscode/tasks.json
-Display.o
-Entities.o
-GodT.o
-WorldT.o
-JS_Wator.exe
+*.o
+*.exe

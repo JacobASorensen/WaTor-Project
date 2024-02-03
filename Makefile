@@ -1,20 +1,36 @@
+
+# Directories
+TARGET = JS_WaTor
+INCLUDE_DIR := include
+OBJ_DIR := obj
+SRC_DIR := src
+
+# Files
+SRC := $(wildcard $(SRC_DIR)/*.cpp)
+HEADERS := $(wildcard $(INCLUDE_DIR)/*.h)
+OBJ := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC))
+TARGET := JS_Wator
+
+#compiler flags
+CXX := g++
+CXXFLAGS =  -g -O3 -Wpedantic -Wall -Wextra -Wmisleading-indentation -Wunused -Wuninitialized -Wshadow -Wconversion -std=c++17 -I${INCLUDE_DIR}
+# -Werror
+
+# compile it!
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS)
+	@mkdir -p $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# dependencies.... much better than manually entering it all!
+$(TARGET): $(OBJ)
+
 .PHONY: all clean
 
-CXXFLAGS =  -g -O3 -Wpedantic -Wall -Wextra -Wmisleading-indentation -Wunused -Wuninitialized -Wshadow -Wconversion -std=c++17
-# -Werror
-OBJS = JS_WaTor
-
-all: ${OBJS}
-
-JS_WaTor: WorldT.o Entities.o GodT.o Display.o
-WorldT.o: WorldT.h
-Entities.o: Entities.h WorldT.h
-GodT.o: GodT.h WorldT.h Entities.h
-Display.o: Display.h WorldT.h Entities.h GodT.h
+all: ${TARGET}
 
 clean:
-	rm -f ${OBJS} *.o 
-
+	rm -rf ${OBJ_DIR} ${TARGET}
+	rm -rd ${OBJDIR}
 clear:
 	make clean
 	clear

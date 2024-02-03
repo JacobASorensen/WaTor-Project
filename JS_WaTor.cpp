@@ -1,7 +1,7 @@
-#include "Entities.h"
-#include "WorldT.h"
-#include "GodT.h"
-#include "Display.h"
+#include "include/Entities.h"
+#include "include/WorldT.h"
+#include "include/GodT.h"
+#include "include/Display.h"
 //#include <iostream>
 //using namespace std;
 
