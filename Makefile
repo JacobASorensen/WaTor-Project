@@ -9,7 +9,7 @@ SRC_DIR := src
 SRC := $(wildcard $(SRC_DIR)/*.cpp)
 HEADERS := $(wildcard $(INCLUDE_DIR)/*.h)
 OBJ := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC))
-TARGET := JS_Wator
+TARGET := JS_WaTor
 
 #compiler flags
 CXX := g++
@@ -23,6 +23,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS)
 
 # dependencies.... much better than manually entering it all!
 $(TARGET): $(OBJ)
+	$(CXX) $(CXXFLAGS) $(TARGET).cpp $(OBJ) -o $@
 
 .PHONY: all clean
 
