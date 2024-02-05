@@ -7,7 +7,7 @@
 #include "Entities.h"
 #include "GodT.h"
 
-char Display::GetEntityChar(std::shared_ptr<EntityT> entity) {
+std::string Display::GetEntityChar(std::shared_ptr<EntityT> entity) {
 
     if(entity.get() != nullptr) {
         if(IsEntityType<FishT>(entity)) {
@@ -32,7 +32,7 @@ char Display::GetEntityChar(std::shared_ptr<EntityT> entity) {
             return VOLCANO_CHAR;
         } 
     }
-    return '.';
+    return EMPTY_WATER;
 }
 
 std::string Display::CreateFirstLine( WorldT& world) {

@@ -9,13 +9,13 @@
 #include "GodT.h"
 
 
-const char FISH_CHAR = 'f';
-const char SHARK_CHAR = 'S';
-const char BOTTOM_FEEDER_CHAR = 'B';
-const char WHALE_CHAR = 'W';
-const char ROCK_CHAR = 'R';
-const char VOLCANO_CHAR = 'V';
-
+const std::string FISH_CHAR = "\033[32mf\033[0m";
+const std::string SHARK_CHAR = "\033[34mS\033[0m";
+const std::string BOTTOM_FEEDER_CHAR = "\033[33mB\033[0m";
+const std::string WHALE_CHAR = "W\033[0m";
+const std::string ROCK_CHAR = "\033[35mR\033[0m";
+const std::string VOLCANO_CHAR = "\033[31mV\033[0m";
+const std::string EMPTY_WATER = "\033[36m.\033[0m";
 //const char WHALE_CHAR = 'W';
 //const char WHALE_CHAR = 'W';
 //const char WHALE_CHAR = 'W';
@@ -24,7 +24,7 @@ const char VOLCANO_CHAR = 'V';
 class Display {
 	public:
 	Display() : aquaticCounts(20,0) {};
-	char GetEntityChar(std::shared_ptr<EntityT> entity);
+	std::string GetEntityChar(std::shared_ptr<EntityT> entity);
 	std::string CreateFirstLine(WorldT& world);
 	std::string CreateLine(WorldT& world, CoordT current);
 	void PrintWorld(WorldT& world, InfoT& initialConditions);
