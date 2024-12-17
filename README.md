@@ -16,6 +16,7 @@ I started this project with a rough design in [UXF](Design/Wator.uxf) of how I w
 While the finished product doesn't follow this exactly, this rough-draft helped me get started on the project.
 
 Simulation example:
+
 ![](pictures/examplestart.png)
 ![](pictures/example50steps.png)
 
