@@ -15,6 +15,9 @@ I started this project with a rough design in [UXF](Design/Wator.uxf) of how I w
 
 While the finished product doesn't follow this exactly, this rough-draft helped me get started on the project.
 
+Simulation example:
+![](pictures/examplestart.png)
+![](pictures/example50steps.png)
 
 ## Overview
 
@@ -56,7 +59,7 @@ Similarly to sharks, bottom feeders will starve to death if they dont get nutrie
 When they find a rock, they stay there, and send out babies every *bottomFeederBreed* turns from their position
 	
 ### Whales
-Whales are mostly indestructible. Volcanoes and rocks are the only things that can kill them. Whales move to a random tile in a cardinal direction irrespective of that tiles' current occupancy. If there happens to be an entity there then it gets swallowed by the whale and inserted into its stomach. If the whale moves onto a volcano or a rock, or a volcano spews a rock onto a whale, then the whale will spill the contents of its stomach onto the tiles nearby.
+Whales are mostly indestructible. Volcanoes and rocks are the only things that can kill them. Whales move to a random tile in a cardinal direction irrespective of that tiles' current occupancy. If there happens to be an entity there then it gets swallowed by the whale and inserted into its' stomach. If the whale moves onto a volcano or a rock, or a volcano spews a rock onto a whale, then the whale dies, and the contents of its stomach get released onto the surrounding tiles.
 
 
 ### Rocks
@@ -84,6 +87,7 @@ volcanoNum volcanoMoveFreq volcanoSpewFreq
 volcanoSpewmagnitude volcanoSpewRange
 volcanoDoomsdayDelay
 ```
+World Parameters:
 - worldWidth: sets the world width. (can't be below 1)
 
 - worldHeight: same as world width, but height
